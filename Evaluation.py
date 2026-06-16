@@ -337,6 +337,8 @@ def front_error(prediction, label):
     return front_is_present_flag, distances
 
 
+
+
 def calculate_front_delineation_metric(names,
                                        post_processed_predicted_masks,
                                        target_fronts_dictionary):
@@ -391,12 +393,12 @@ def check_whether_winter_half_year(name):
         nord_halbkugel = False
     month = int(split_name[1].split('-')[1])
     if nord_halbkugel:
-        if month < 7:        #if month < 4 or month > 8:
+        if month < 7:       
             winter = True
         else:
             winter = False
     else:
-        if month >= 7 :        #if month < 4 or month > 8:
+        if month >= 7 :
             winter = False
         else:
             winter = True
