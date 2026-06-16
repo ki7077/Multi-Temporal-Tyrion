@@ -1,0 +1,69 @@
+target: CaFFe.GenericDataModule.GenericDataModule
+params:
+  n_workers : 8
+  persistent_workers : True
+  custom_collate:
+    target: CaFFe.custom_collate.custom_collate
+
+  train_config:
+    target: CaFFe.temporal_dataset.RandomMultiplePatchDataset
+    params:
+      patch_size : 256
+      context_factor : 2
+      context_without_resize : True
+      prob_erasure : 0.1
+      prob_mix_up: 0.1
+      prob_cut_mix: 0.1
+      T: 8
+      style_dic_type: "glacier"
+      prob_rezoom: 0.3
+      parent_dir : #TODO
+      split : "train"
+      nr_of_samples_per_epoch : 5000
+      augmentation :
+        target: CaFFe.augmentations.OcrodegAug.OcrodegAug
+        params:
+          p_gamma: 0.2
+          p_contrast: 0.2
+          p_brightness: 0.2
+          p_poisson_speckel: 0.2
+
+      double_augmentation :
+        target: CaFFe.augmentations.FlipAugments.FlipMultiAugments
+        params:
+          p_flip_v : 0.5
+          p_rotate : 0.5
+          p_flip_h : 0.5
+
+  validation_config:
+    target: CaFFe.temporal_dataset.MultiPatchDataSet
+    params:
+      patch_size: 256
+      context_factor: 2
+      T: 8
+      style_dic_type: "reso"
+      context_without_resize: True
+      parent_dir : #TODO
+      split : "val"
+
+      double_augmentation:
+        target: CaFFe.augmentations.FlipAugments.FlipMultiAugments
+      augmentation:
+        target: CaFFe.augmentations.OcrodegAug.OcrodegAug
+
+  test_config:
+    target: CaFFe.temporal_dataset.MultiPatchDataSet
+    params:
+      patch_size: 256
+      context_without_resize: True
+      context_factor: 2
+      T: 8
+      parent_dir : #TODO
+      split: "test"
+      style_dic_type: "reso"
+
+      double_augmentation:
+        target: CaFFe.augmentations.FlipAugments.FlipMultiAugments
+      augmentation:
+        target: CaFFe.augmentations.OcrodegAug.OcrodegAug
+

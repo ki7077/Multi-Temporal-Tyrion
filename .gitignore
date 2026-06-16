@@ -1,0 +1,9 @@
+*.pyc
+swinv2_tiny_patch4_window16_256.pth
+/CaFFe/distance_errors.txt
+/log_dir/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
